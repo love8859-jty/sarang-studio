@@ -243,6 +243,14 @@ p { margin: 0; }
 .review-bars .bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
 .review-bars .n { text-align: right; color: var(--muted); font-size: 14px; }
 
+/* ---------- 고객 후기 카드 ---------- */
+.review-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 22px; }
+.review-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 26px; display: flex; flex-direction: column; gap: 14px; }
+.review-card .stars { color: var(--gold); letter-spacing: 2px; font-size: 15px; }
+.review-card blockquote { margin: 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.75; flex: 1; }
+.review-card figcaption { font-size: 14px; color: var(--muted); }
+.review-card figcaption b { color: var(--ink); }
+
 /* ---------- 신뢰 배지 ---------- */
 .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
 .trust div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 20px; text-align: center; }

@@ -303,11 +303,34 @@
       <div class="review-score">
         <div class="score"><b>★ ${R.score}</b><span>네이버 방문자 리뷰 ${R.count}건</span></div>
         <small>${R.asOf}</small>
-        ${S.naverPlace ? `<a class="btn btn-line" href="${S.naverPlace}" target="_blank" rel="noopener">리뷰 전체 보기</a>` : ""}
+        ${S.naverReviews || S.naverPlace ? `<a class="btn btn-line" href="${S.naverReviews || S.naverPlace}" target="_blank" rel="noopener">네이버 리뷰 전체 보기</a>` : ""}
       </div>
       <ul class="review-bars">${R.keywords.map(([t, n]) => `
         <li><span class="t">"${t}"</span><span class="bar"><i style="width:${Math.round((n / max) * 100)}%"></i></span><span class="n">${n}</span></li>`).join("")}
       </ul>`;
+  });
+
+  $$("[data-naver-reviews]").forEach((a) => { a.href = S.naverReviews || S.naverPlace || "#"; });
+
+  /* ---------------- 고객 후기 카드 (config.js 의 REVIEWS) ----------------
+     data-review-cards="가족사진" 처럼 쓰면 그 분야 후기만 보여줌.
+     보여줄 후기가 없으면 data-review-section 영역을 통째로 숨김 */
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  $$("[data-review-cards]").forEach((el) => {
+    const type = el.dataset.reviewCards;
+    const list = (window.REVIEWS || []).filter((r) => r && r.text && (!type || r.type === type));
+    if (!list.length) {
+      const sec = el.closest("[data-review-section]");
+      (sec || el).remove();
+      return;
+    }
+    el.classList.add("review-cards");
+    el.innerHTML = list.map((r) => `
+      <figure class="review-card reveal">
+        <div class="stars" aria-label="별점 5점">★★★★★</div>
+        <blockquote>${esc(r.text)}</blockquote>
+        <figcaption><b>${esc(r.name || "고객")}님</b>${r.type ? ` · ${esc(r.type)}` : ""}${r.date ? ` · ${esc(r.date)}` : ""}</figcaption>
+      </figure>`).join("");
   });
 
   /* ---------------- 지도 ---------------- */
