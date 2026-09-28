@@ -9,7 +9,7 @@
 
 window.STUDIO = {
   name: "사랑이야기스튜디오",
-  nameEn: "SARANG STORY STUDIO",
+  nameEn: "LOVESTORY STUDIO",
   slogan: "1996년부터, 구미 가족의 가장 행복한 순간을 기록합니다",
 
   phone: "054-455-8859",                       // 대표 전화번호
