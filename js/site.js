@@ -224,14 +224,21 @@
   lb.className = "lightbox";
   lb.setAttribute("role", "dialog");
   lb.setAttribute("aria-label", "사진 크게 보기");
-  lb.innerHTML = `<button class="lb-btn lb-close" aria-label="닫기">×</button><button class="lb-btn lb-prev" aria-label="이전 사진">‹</button><img alt=""><button class="lb-btn lb-next" aria-label="다음 사진">›</button><div class="lb-cap"></div>`;
+  lb.innerHTML = `<button class="lb-btn lb-close" aria-label="닫기">×</button><button class="lb-btn lb-prev" aria-label="이전 사진">‹</button><img alt=""><video controls playsinline hidden></video><button class="lb-btn lb-next" aria-label="다음 사진">›</button><div class="lb-cap"></div>`;
   document.body.appendChild(lb);
   let lbList = [], lbIdx = 0;
   function showLb(i) {
     lbIdx = (i + lbList.length) % lbList.length;
     const f = lbList[lbIdx];
-    $("img", lb).src = f.dataset.src || $("img", f).src;
-    $("img", lb).alt = f.dataset.cap || "";
+    const img = $("img", lb), vid = $("video", lb);
+    if (f.dataset.video) {            // 후기 영상은 소리와 함께 재생
+      img.hidden = true; vid.hidden = false;
+      vid.src = f.dataset.video; vid.poster = f.dataset.src || ""; vid.play().catch(() => {});
+    } else {
+      vid.pause(); vid.removeAttribute("src"); vid.hidden = true; img.hidden = false;
+      img.src = f.dataset.src || $("img", f).src;
+      img.alt = f.dataset.cap || "";
+    }
     $(".lb-cap", lb).textContent = f.dataset.cap || "";
     const multi = lbList.length > 1;
     $(".lb-prev", lb).style.display = $(".lb-next", lb).style.display = multi ? "" : "none";
@@ -239,13 +246,13 @@
   document.addEventListener("click", (e) => {
     const f = e.target.closest("[data-lb]");
     if (!f) return;
-    const group = f.closest("[data-gallery], .mosaic") || document;
+    const group = f.closest("[data-gallery], .mosaic, .review-card") || document;
     lbList = $$("[data-lb]", group);
     showLb(lbList.indexOf(f));
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
   });
-  function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; }
+  function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; $("video", lb).pause(); }
   $(".lb-close", lb).onclick = closeLb;
   $(".lb-prev", lb).onclick = () => showLb(lbIdx - 1);
   $(".lb-next", lb).onclick = () => showLb(lbIdx + 1);
@@ -325,12 +332,26 @@
       return;
     }
     el.classList.add("review-cards");
-    el.innerHTML = list.map((r) => `
-      <figure class="review-card reveal">
+    const limit = +el.dataset.limit || 0;   // 처음엔 limit 개만 보여주고 '후기 더 보기'로 나머지 표시
+    el.innerHTML = list.map((r, i) => `
+      <figure class="review-card reveal" ${limit && i >= limit ? "hidden" : ""}>
         <div class="stars" aria-label="별점 5점">★★★★★</div>
+        ${(r.media || []).length ? `<div class="review-media">${r.media.map((m) => m.video
+          ? `<figure data-lb data-video="${esc(m.video)}" data-src="${esc(m.poster || "")}" data-cap="${esc(r.name || "고객")}님 후기 영상"><video src="${esc(m.video)}" poster="${esc(m.poster || "")}" muted loop autoplay playsinline preload="metadata"></video><span class="play">▶</span></figure>`
+          : `<figure data-lb data-src="${esc(m.src)}" data-cap="${esc(r.name || "고객")}님 후기 사진"><img src="${esc(m.src)}" alt="${esc(r.name || "고객")}님이 남긴 후기 사진" loading="lazy"></figure>`).join("")}</div>` : ""}
         <blockquote>${esc(r.text)}</blockquote>
         <figcaption><b>${esc(r.name || "고객")}님</b>${r.type ? ` · ${esc(r.type)}` : ""}${r.date ? ` · ${esc(r.date)}` : ""}</figcaption>
       </figure>`).join("");
+    if (limit && list.length > limit) {
+      const more = document.createElement("div");
+      more.className = "review-more";
+      more.innerHTML = `<button type="button" class="btn btn-line">후기 더 보기 (${list.length - limit}개)</button>`;
+      more.querySelector("button").onclick = () => {
+        $$(".review-card[hidden]", el).forEach((c) => { c.hidden = false; c.classList.add("in"); });
+        more.remove();
+      };
+      el.after(more);
+    }
   });
 
   /* ---------------- 지도 ---------------- */
