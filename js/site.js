@@ -7,6 +7,8 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const tel = (n) => "tel:" + n.replace(/[^0-9+]/g, "");
   const catByKey = (k) => CATS.find((c) => c.key === k);
+  // 글자를 화면에 안전하게 넣기 (후기·사진 설명에 < > 같은 기호가 있어도 깨지지 않게)
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   const ICON = {
     phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
@@ -189,10 +191,18 @@
   });
 
   /* ---------------- 갤러리 ---------------- */
+  // data-gallery="family"  : 그 분야 사진 (all 이면 전체)
+  // data-filter             : 분야 버튼 표시 (갤러리 페이지)
+  // data-subs               : 분야 안의 코너 버튼 표시 (대가족·소가족·반려동물 등)
+  // data-limit="6"          : 딱 N장만 (첫 화면 미리보기)
+  // data-page="24"          : N장씩 보여주고 '사진 더 보기'
   $$("[data-gallery]").forEach((el) => {
     const initial = el.dataset.gallery || "all";
     const limit = +el.dataset.limit || 0;
+    const pageSize = +el.dataset.page || 0;
     const withFilter = el.dataset.filter !== undefined;
+    const withSubs = el.dataset.subs !== undefined;
+    let cat = initial, sub = "all", shown = pageSize;
     let filterBar = null;
     if (withFilter) {
       filterBar = document.createElement("div");
@@ -202,21 +212,45 @@
       el.before(filterBar);
       filterBar.addEventListener("click", (e) => {
         const b = e.target.closest("button"); if (!b) return;
-        render(b.dataset.k);
-        history.replaceState(null, "", b.dataset.k === "all" ? "gallery.html" : `gallery.html?cat=${b.dataset.k}`);
+        cat = b.dataset.k; sub = "all"; shown = pageSize; render();
+        history.replaceState(null, "", cat === "all" ? "gallery.html" : `gallery.html?cat=${cat}`);
       });
     }
-    function render(cat) {
-      let list = GALLERY.filter((g) => cat === "all" || g.cat === cat);
+    const subBar = document.createElement("div");
+    subBar.className = "filters subs";
+    el.before(subBar);
+    subBar.addEventListener("click", (e) => {
+      const b = e.target.closest("button"); if (!b) return;
+      sub = b.dataset.s; shown = pageSize; render();
+    });
+    const more = document.createElement("div");
+    more.className = "gallery-more";
+    el.after(more);
+    more.addEventListener("click", (e) => { if (e.target.closest("button")) { shown += pageSize; render(); } });
+
+    function render() {
+      const inCat = GALLERY.filter((g) => cat === "all" || g.cat === cat);
+      // 코너 버튼: 분야를 골랐고 코너가 2개 이상일 때만
+      const subs = [...new Set(inCat.map((g) => g.sub).filter(Boolean))];
+      const showSubs = withSubs && cat !== "all" && subs.length > 1;
+      subBar.innerHTML = showSubs ? [["all", "전체"], ...subs.map((s) => [s, s])]
+        .map(([k, n]) => `<button type="button" data-s="${esc(k)}" class="${k === sub ? "on" : ""}">${esc(n)} <small>${k === "all" ? inCat.length : inCat.filter((g) => g.sub === k).length}</small></button>`).join("") : "";
+      subBar.hidden = !showSubs;
+      let list = inCat.filter((g) => sub === "all" || g.sub === sub);
+      const total = list.length;
       if (limit) list = list.slice(0, limit);
+      if (pageSize) list = list.slice(0, shown);
       if (filterBar) $$("button", filterBar).forEach((b) => b.classList.toggle("on", b.dataset.k === cat));
       el.innerHTML = list.length
-        ? list.map((g) => `<figure data-lb data-src="${g.src}" data-cap="${g.alt}"><img src="${g.src}" alt="${g.alt}" loading="lazy"><figcaption>${catByKey(g.cat)?.name || ""}</figcaption></figure>`).join("")
+        ? list.map((g) => `<figure data-lb data-src="${esc(g.src)}" data-cap="${esc(g.alt)}"><img src="${esc(g.src)}" alt="${esc(g.alt)}" loading="lazy"><figcaption>${esc(g.sub || catByKey(g.cat)?.name || "")}</figcaption></figure>`).join("")
         : `<p class="gallery-empty">${catByKey(cat)?.name || ""} 샘플 사진을 준비하고 있습니다.<br>상담 시 실제 촬영 사진을 보여드려요.</p>`;
       el.classList.toggle("gallery", list.length > 0);
+      more.innerHTML = pageSize && total > list.length
+        ? `<button type="button" class="btn btn-line">사진 더 보기 (${total - list.length}장 더)</button>` : "";
     }
     const q = new URLSearchParams(location.search).get("cat");
-    render(withFilter && q && catByKey(q) ? q : initial);
+    if (withFilter && q && catByKey(q)) cat = q;
+    render();
   });
 
   /* ---------------- 사진 크게 보기 ---------------- */
@@ -322,7 +356,6 @@
   /* ---------------- 고객 후기 카드 (config.js 의 REVIEWS) ----------------
      data-review-cards="가족사진" 처럼 쓰면 그 분야 후기만 보여줌.
      보여줄 후기가 없으면 data-review-section 영역을 통째로 숨김 */
-  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   $$("[data-review-cards]").forEach((el) => {
     const type = el.dataset.reviewCards;
     const list = (window.REVIEWS || []).filter((r) => r && r.text && (!type || r.type === type));
