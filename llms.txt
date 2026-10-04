@@ -9,7 +9,7 @@
 - 영업시간: 월 · 목 · 금 · 토 09:00 – 18:00, 일요일 09:00 – 17:00, 점심시간 12:00 – 13:00, 화 · 수요일 정기휴무
 - 주차: 무료 주차 10대 가능 (건물 뒤 전용주차장, 건물 앞·옆). 도착 전 문의해 주세요.
 - 예약·상담: 네이버 예약 https://m.booking.naver.com/booking/6/bizes/145890 / 카카오톡 채널 https://pf.kakao.com/_kkwCxd/chat / 네이버 톡톡 https://talk.naver.com/wcbz2s / 전화
-- 결제: 간편결제, 구미사랑상품권, 온누리상품권
+- 결제: 카드, 현금, 간편결제, 구미사랑상품권, 온누리상품권
 - 이력: 미국 PPA 사진명장(Master of Photography, 2014), (사)한국프로사진협회 부회장, (사)한국프로사진협회 초대작가(제300호), 중소벤처기업부 백년가게(2023), 으뜸 소상공인 표창
 - 주요 고객 지역: 구미시, 김천시, 상주시, 문경시, 칠곡군, 의성군, 군위군
 
@@ -55,5 +55,6 @@ SNS·명함·오디션용 프로필, 부모님 장수사진
 - https://love8859-jty.github.io/sarang-studio/news.html
 - https://love8859-jty.github.io/sarang-studio/passport.html
 - https://love8859-jty.github.io/sarang-studio/price.html
+- https://love8859-jty.github.io/sarang-studio/privacy.html
 - https://love8859-jty.github.io/sarang-studio/profile.html
 - https://love8859-jty.github.io/sarang-studio/remind.html

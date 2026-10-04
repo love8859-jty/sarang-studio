@@ -106,7 +106,7 @@
             <div class="f-links"><a href="gallery.html">갤러리</a><a href="price.html">상품·가격</a><a href="news.html">사랑이야기 소식</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
           </div>
         </div>
-        <div class="copy"><span>${S.bizInfo}</span><span>© ${new Date().getFullYear()} ${S.name}</span></div>
+        <div class="copy"><span>${S.bizInfo}</span><span><a href="privacy.html"><b>개인정보처리방침</b></a> &nbsp;·&nbsp; © ${new Date().getFullYear()} ${S.name}</span></div>
       </div>
     </footer>
     <div class="bottom-bar" role="navigation" aria-label="빠른 문의">
