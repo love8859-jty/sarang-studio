@@ -19,8 +19,10 @@
   };
 
   /* ---------------- 헤더 ---------------- */
+  // '홈페이지_올리기'로 미리 써 넣은(data-built) 헤더·푸터는 다시 그리지 않고 버튼 동작만 연결
+  // (네이버 등 검색 로봇이 메뉴·연락처를 바로 읽을 수 있도록 HTML에 미리 들어가 있어요)
   const header = $("#site-header");
-  if (header) {
+  if (header && !("built" in header.dataset)) {
     const dropLinks = CATS.map((c) => `<a href="${c.page}">${c.name}${c.key === "family" ? "<em>대표</em>" : ""}</a>`).join("");
     const isCat = CATS.some((c) => c.key === page);
     header.outerHTML = `
@@ -35,6 +37,7 @@
           </div>
           <a href="gallery.html" class="${page === "gallery" ? "active" : ""}">갤러리</a>
           <a href="price.html" class="${page === "price" ? "active" : ""}">상품·가격</a>
+          <a href="news.html" class="${page === "news" ? "active" : ""}">소식</a>
           <a href="contact.html#location" class="${page === "contact" ? "active" : ""}">오시는 길</a>
           <a href="contact.html" class="btn btn-primary">예약 문의</a>
         </nav>
@@ -49,6 +52,7 @@
         <a href="index.html">홈</a>
         <a href="gallery.html">갤러리</a>
         <a href="price.html">상품 · 가격</a>
+        <a href="news.html">사랑이야기 소식</a>
         <a href="contact.html">예약 문의</a>
         <a href="contact.html#location">오시는 길</a>
       </div>
@@ -57,14 +61,18 @@
         ${S.naverBooking ? `<a class="btn btn-naver" style="flex:1" href="${S.naverBooking}" target="_blank" rel="noopener">N 네이버 예약</a>` : ""}
       </div>
     </div>`;
-
-    const btn = $(".menu-btn"), mm = $("#mobile-menu");
-    btn.addEventListener("click", () => {
+  }
+  // 메뉴 버튼 동작 (미리 써 넣은 헤더든, 방금 그린 헤더든 똑같이)
+  const menuBtn = $(".menu-btn"), mm = $("#mobile-menu");
+  if (menuBtn && mm) {
+    menuBtn.addEventListener("click", () => {
       const open = mm.classList.toggle("open");
-      btn.setAttribute("aria-expanded", open);
+      menuBtn.setAttribute("aria-expanded", open);
       document.body.style.overflow = open ? "hidden" : "";
     });
-    const drop = $(".drop");
+  }
+  const drop = $(".drop");
+  if (drop) {
     drop.querySelector("button").addEventListener("click", (e) => {
       const open = drop.classList.toggle("open");
       e.currentTarget.setAttribute("aria-expanded", open);
@@ -74,7 +82,7 @@
 
   /* ---------------- 푸터 + 모바일 하단 버튼 ---------------- */
   const footer = $("#site-footer");
-  if (footer) {
+  if (footer && !("built" in footer.dataset)) {
     const sns = [["네이버 예약", S.naverBooking], ["네이버 톡톡", S.naverTalk], ["인스타그램", S.instagram], ["네이버 카페", S.cafe], ["블로그", S.blog], ["카카오톡", S.kakao]]
       .filter((x) => x[1]).map((x) => `<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join("");
     footer.outerHTML = `
@@ -95,7 +103,7 @@
             <h4>영업시간</h4>
             <div class="f-links">${S.hours.map((h) => `<span>${h[0]} &nbsp;${h[1]}</span>`).join("")}</div>
             <h4 style="margin-top:24px">바로가기</h4>
-            <div class="f-links"><a href="gallery.html">갤러리</a><a href="price.html">상품·가격</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
+            <div class="f-links"><a href="gallery.html">갤러리</a><a href="price.html">상품·가격</a><a href="news.html">사랑이야기 소식</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
           </div>
         </div>
         <div class="copy"><span>${S.bizInfo}</span><span>© ${new Date().getFullYear()} ${S.name}</span></div>
@@ -122,7 +130,7 @@
   }
 
   /* ---------------- 분야 탭 (분야 페이지 상단) ---------------- */
-  $$("[data-cat-tabs]").forEach((el) => {
+  $$("[data-cat-tabs]:not([data-built])").forEach((el) => {
     // 가격 페이지에서는 탭을 누르면 같은 페이지의 해당 가격표로 이동
     el.outerHTML = `<nav class="cat-tabs" aria-label="촬영 분야"><div class="wrap">${CATS.map((c) =>
       `<a href="${page === "price" ? "#price-" + c.key : c.page}" class="${c.key === page ? "active" : ""}">${c.name}</a>`).join("")}</div></nav>`;
@@ -131,7 +139,7 @@
   if (activeTab) { const box = activeTab.parentElement; box.scrollLeft = activeTab.offsetLeft - (box.clientWidth - activeTab.clientWidth) / 2; }
 
   /* ---------------- 첫 화면 분야 카드 ---------------- */
-  $$("[data-cat-grid]").forEach((el) => {
+  $$("[data-cat-grid]:not([data-built])").forEach((el) => {
     el.innerHTML = CATS.map((c, i) => `
       <a class="cat-card reveal ${i === 0 ? "featured" : ""}" href="${c.page}">
         ${i === 0 ? '<span class="badge">대표 촬영</span>' : ""}
@@ -176,7 +184,7 @@
         <a class="btn ${p.best ? "btn-primary" : "btn-line"}" href="contact.html?type=${key}&item=${encodeURIComponent(p.name)}">이 상품으로 문의</a>
       </div>`).join("")}</div>`;
   }
-  $$("[data-prices]").forEach((el) => {
+  $$("[data-prices]:not([data-built])").forEach((el) => {
     const key = el.dataset.prices;
     const notice = S.priceNotice ? `<p class="price-notice">${S.priceNotice}</p>` : "";
     if (key === "all") {

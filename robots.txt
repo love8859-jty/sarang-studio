@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://love8859-jty.github.io/sarang-studio/sitemap.xml
