@@ -37,7 +37,6 @@
           </div>
           <a href="gallery.html" class="${page === "gallery" ? "active" : ""}">갤러리</a>
           <a href="price.html" class="${page === "price" ? "active" : ""}">상품·가격</a>
-          <a href="studio.html" class="${page === "studio" ? "active" : ""}">스튜디오</a>
           <a href="news.html" class="${page === "news" ? "active" : ""}">소식</a>
           <a href="contact.html#location" class="${page === "contact" ? "active" : ""}">오시는 길</a>
           <a href="contact.html" class="btn btn-primary">예약 문의</a>
@@ -53,7 +52,6 @@
         <a href="index.html">홈</a>
         <a href="gallery.html">갤러리</a>
         <a href="price.html">상품 · 가격</a>
-        <a href="studio.html">스튜디오 소개 (시설 · 의상)</a>
         <a href="news.html">사랑이야기 소식</a>
         <a href="contact.html">예약 문의</a>
         <a href="contact.html#location">오시는 길</a>
@@ -105,7 +103,7 @@
             <h4>영업시간</h4>
             <div class="f-links">${S.hours.map((h) => `<span>${h[0]} &nbsp;${h[1]}</span>`).join("")}</div>
             <h4 style="margin-top:24px">바로가기</h4>
-            <div class="f-links"><a href="studio.html">스튜디오 소개</a><a href="gallery.html">갤러리</a><a href="price.html">상품·가격</a><a href="news.html">사랑이야기 소식</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
+            <div class="f-links"><a href="gallery.html">갤러리</a><a href="gallery.html?cat=studio">스튜디오 둘러보기</a><a href="price.html">상품·가격</a><a href="news.html">사랑이야기 소식</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
           </div>
         </div>
         <div class="copy"><span>${S.bizInfo}</span><span><a href="privacy.html"><b>개인정보처리방침</b></a> &nbsp;·&nbsp; © ${new Date().getFullYear()} ${S.name}</span></div>
@@ -140,14 +138,14 @@
   const activeTab = $(".cat-tabs a.active");
   if (activeTab) { const box = activeTab.parentElement; box.scrollLeft = activeTab.offsetLeft - (box.clientWidth - activeTab.clientWidth) / 2; }
 
-  /* ---------------- 첫 화면 분야 카드 (+ 스튜디오 소개 카드) ---------------- */
+  /* ---------------- 첫 화면 분야 카드 (+ 갤러리 '스튜디오' 폴더로 가는 카드) ---------------- */
   const STUDIO_CARD = `
-      <a class="cat-card reveal" href="studio.html">
+      <a class="cat-card reveal" href="gallery.html?cat=studio">
         <div class="thumb"><img src="images/studio-1.jpg" alt="사랑이야기스튜디오 시설과 의상" loading="lazy" data-fallback="스튜디오"></div>
         <div class="body">
           <span class="en">Our Studio</span>
-          <h3>스튜디오 소개</h3>
-          <p>4층 사진 전용 건물, 세트장 · 파우더룸 · 의상 1,000여 벌</p>
+          <h3>스튜디오 둘러보기</h3>
+          <p>4층 사진 전용 건물의 세트장 · 파우더룸 · 의상 사진</p>
           <span class="more">자세히 보기 →</span>
         </div>
       </a>`;
@@ -227,7 +225,7 @@
     if (withFilter) {
       filterBar = document.createElement("div");
       filterBar.className = "filters";
-      filterBar.innerHTML = [["all", "전체"], ...CATS.map((c) => [c.key, c.name]), ...(GALLERY.some((g) => g.cat === "studio") ? [["studio", "스튜디오"]] : [])]
+      filterBar.innerHTML = [["all", "전체"], ...CATS.map((c) => [c.key, c.name]), ["studio", "스튜디오"]]
         .map(([k, n]) => `<button type="button" data-k="${k}">${n}</button>`).join("");
       el.before(filterBar);
       filterBar.addEventListener("click", (e) => {
@@ -243,6 +241,12 @@
       const b = e.target.closest("button"); if (!b) return;
       sub = b.dataset.s; shown = pageSize; render();
     });
+    // '스튜디오' 폴더를 고르면 위에 짧은 소개 글
+    const intro = document.createElement("p");
+    intro.className = "gallery-intro";
+    intro.textContent = "1996년부터 운영해 온 4층 사진 전용 건물이에요. 200평 2개 층의 촬영 세트장, 20년 경력 원장님의 파우더룸, 드레스·턱시도·한복 등 1,000여 벌의 의상을 갖추고 있어 몸만 오셔도 촬영 준비가 끝나요.";
+    intro.hidden = true;
+    subBar.after(intro);
     const more = document.createElement("div");
     more.className = "gallery-more";
     el.after(more);
@@ -263,7 +267,10 @@
       if (filterBar) $$("button", filterBar).forEach((b) => b.classList.toggle("on", b.dataset.k === cat));
       el.innerHTML = list.length
         ? list.map((g) => `<figure data-lb data-src="${esc(g.src)}" data-cap="${esc(g.alt)}"><img src="${esc(g.src)}" alt="${esc(g.alt)}" loading="lazy"><figcaption>${esc(g.sub || catByKey(g.cat)?.name || "")}</figcaption></figure>`).join("")
-        : `<p class="gallery-empty">${esc(el.dataset.emptyText || `${catByKey(cat)?.name || ""} 샘플 사진을 준비하고 있습니다. 상담 시 실제 촬영 사진을 보여드려요.`)}</p>`;
+        : `<p class="gallery-empty">${esc(el.dataset.emptyText || (cat === "studio"
+            ? "스튜디오 시설과 의상 사진을 준비하고 있어요. 방문하시면 직접 둘러보실 수 있어요."
+            : `${catByKey(cat)?.name || ""} 샘플 사진을 준비하고 있습니다. 상담 시 실제 촬영 사진을 보여드려요.`))}</p>`;
+      intro.hidden = cat !== "studio";
       // data-hide-empty: 보여줄 사진이 하나도 없으면 그 영역(section)을 통째로 숨김
       if (!list.length && el.dataset.hideEmpty !== undefined) { const sec = el.closest("section"); if (sec) sec.hidden = true; }
       el.classList.toggle("gallery", list.length > 0);
@@ -271,7 +278,7 @@
         ? `<button type="button" class="btn btn-line">사진 더 보기 (${total - list.length}장 더)</button>` : "";
     }
     const q = new URLSearchParams(location.search).get("cat");
-    if (withFilter && q && catByKey(q)) cat = q;
+    if (withFilter && q && (catByKey(q) || q === "studio")) cat = q;
     render();
   });
 
