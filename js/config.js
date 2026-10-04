@@ -72,8 +72,7 @@ window.CATEGORIES = [
   { key: "family",   name: "가족사진",     en: "Family",   page: "family.html",   img: "images/family-big.jpg",          desc: "우리 네 식구부터 3대 대가족, 칠순·팔순 기념까지" },
   { key: "remind",   name: "리마인드웨딩", en: "Remind Wedding", page: "remind.html", img: "images/remind-couple.jpg", desc: "결혼기념일, 회갑·칠순, 다시 입는 웨딩드레스" },
   { key: "friends",  name: "우정사진",     en: "Friendship", page: "friends.html", img: "images/friends-ribbon.jpg",     desc: "오랜 친구, 동창, 모임과 함께 남기는 추억" },
-  { key: "id",       name: "증명사진",     en: "ID Photo", page: "id-photo.html", img: "images/id-1.jpg",               desc: "취업·이력서·자격증, 인상이 좋아 보이는 증명사진" },
-  { key: "passport", name: "여권사진",     en: "Passport", page: "passport.html", img: "images/passport-1.jpg",         desc: "외교부 규격에 맞춘 정확한 여권사진" },
+  { key: "id",       name: "증명·여권사진", en: "ID & Passport", page: "id-photo.html", img: "images/id-1.jpg",          desc: "취업·자격증 증명사진, 외교부 규격 여권사진" },
   { key: "profile",  name: "프로필사진",   en: "Profile",  page: "profile.html",  img: "images/profile-1.jpg",          desc: "SNS·명함·오디션용 프로필, 부모님 장수사진" },
 ];
 
@@ -102,10 +101,7 @@ window.PRICES = {
     { name: "우정사진", people: "5인 이상", price: "1인 30,000원", best: true, items: ["12×17cm 1장 + 5×7cm 1장 (동일 사진)", "의상 1벌 직접 준비 (흰셔츠 무료 대여)", "드레스·파티복·한복·경성복·교복 대여 1벌 3만원", "메이크업 & 헤어 추가 시 할인", "원본파일 추가 1인 5만원", "웹용 액자 작업본 파일 제공"] },
   ],
   id: [
-    { name: "증명 · 여권사진", people: "1인", price: "30,000원", best: true, items: ["용도에 맞는 규격으로 촬영", "세부 구성은 전화로 안내해 드려요"] },
-  ],
-  passport: [
-    { name: "증명 · 여권사진", people: "1인", price: "30,000원", best: true, items: ["외교부 여권 규격 3.5×4.5cm", "세부 구성은 전화로 안내해 드려요"] },
+    { name: "증명 · 여권사진", people: "1인", price: "30,000원", best: true, items: ["이력서·자격증·주민등록증 등 용도에 맞는 규격", "외교부 여권 규격 3.5×4.5cm", "자세·표정 코칭과 자연스러운 보정", "세부 구성은 전화로 안내해 드려요"] },
   ],
   profile: [
     { name: "프로필사진", people: "1인 · SNS·홈페이지·명함용", price: "100,000원", best: true, items: ["12×17cm 1장 + 5×7cm 1장 (동일 사진)", "수정본 파일 제공 (선택 사진)", "추가 사진 1장 5만원 (보정 포함)", "의상 1벌 직접 준비 (드레스·한복 등 대여 1벌 3만원)", "촬영 · 사진 선택 약 1시간"] },
@@ -119,7 +115,7 @@ window.PRICES = {
    - ★ 네이버에 남겨주신 후기를 옮길 때는 꼭 손님께 "홈페이지에 올려도 될까요?"
      동의를 받은 뒤 넣어주세요. (후기 글의 권리는 작성하신 손님께 있어요)
    - name 은 "김**" 처럼 가려서 적어주세요.
-   - type 은 가족사진 / 리마인드웨딩 / 우정사진 / 증명사진 / 여권사진 / 프로필사진 중 하나
+   - type 은 가족사진 / 리마인드웨딩 / 우정사진 / 증명·여권사진 / 프로필사진 중 하나
      (가족사진 페이지에는 type 이 "가족사진"인 후기만 보여요)
    - 후기가 하나도 없으면 후기 칸은 자동으로 숨겨집니다.
    - 아래 예시 줄의 맨 앞 // 를 지우고 내용을 바꾸면 됩니다.
@@ -143,7 +139,7 @@ window.REVIEWS = [
 /* ---------------------------------------------------------------------
    갤러리 사진 목록
    - 새 사진은 images 폴더에 넣고, 아래에 한 줄 추가하면 됩니다.
-   - cat 은 family / remind / friends / id / passport / profile 중 하나
+   - cat 은 family / remind / friends / id(증명·여권) / profile / studio(스튜디오 시설·의상) 중 하나
    --------------------------------------------------------------------- */
 window.GALLERY = [
   { src: "images/family-big.jpg",              cat: "family",  alt: "3대 대가족이 흑백 의상으로 하트를 만든 가족사진" },

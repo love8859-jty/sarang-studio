@@ -17,6 +17,8 @@
       var base = location.hostname.endsWith("github.io") ? "/sarang-studio/" : "/";
       var p = (location.pathname + location.search).toLowerCase();
       var map = [
+        [/passport|id-photo/, "id-photo.html"],
+        [/studio|facility|costume/, "studio.html"],
         [/hid=family|family-photo|70th|memorial/, "family.html"],
         [/hid=wedding|hid=remind|remind-wedding|family-wedding/, "remind.html"],
         [/hid=friend|friendship/, "friends.html"],

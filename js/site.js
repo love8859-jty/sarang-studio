@@ -37,6 +37,7 @@
           </div>
           <a href="gallery.html" class="${page === "gallery" ? "active" : ""}">갤러리</a>
           <a href="price.html" class="${page === "price" ? "active" : ""}">상품·가격</a>
+          <a href="studio.html" class="${page === "studio" ? "active" : ""}">스튜디오</a>
           <a href="news.html" class="${page === "news" ? "active" : ""}">소식</a>
           <a href="contact.html#location" class="${page === "contact" ? "active" : ""}">오시는 길</a>
           <a href="contact.html" class="btn btn-primary">예약 문의</a>
@@ -52,6 +53,7 @@
         <a href="index.html">홈</a>
         <a href="gallery.html">갤러리</a>
         <a href="price.html">상품 · 가격</a>
+        <a href="studio.html">스튜디오 소개 (시설 · 의상)</a>
         <a href="news.html">사랑이야기 소식</a>
         <a href="contact.html">예약 문의</a>
         <a href="contact.html#location">오시는 길</a>
@@ -103,7 +105,7 @@
             <h4>영업시간</h4>
             <div class="f-links">${S.hours.map((h) => `<span>${h[0]} &nbsp;${h[1]}</span>`).join("")}</div>
             <h4 style="margin-top:24px">바로가기</h4>
-            <div class="f-links"><a href="gallery.html">갤러리</a><a href="price.html">상품·가격</a><a href="news.html">사랑이야기 소식</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
+            <div class="f-links"><a href="studio.html">스튜디오 소개</a><a href="gallery.html">갤러리</a><a href="price.html">상품·가격</a><a href="news.html">사랑이야기 소식</a><a href="contact.html">예약 문의 · 오시는 길</a></div>
           </div>
         </div>
         <div class="copy"><span>${S.bizInfo}</span><span><a href="privacy.html"><b>개인정보처리방침</b></a> &nbsp;·&nbsp; © ${new Date().getFullYear()} ${S.name}</span></div>
@@ -138,7 +140,17 @@
   const activeTab = $(".cat-tabs a.active");
   if (activeTab) { const box = activeTab.parentElement; box.scrollLeft = activeTab.offsetLeft - (box.clientWidth - activeTab.clientWidth) / 2; }
 
-  /* ---------------- 첫 화면 분야 카드 ---------------- */
+  /* ---------------- 첫 화면 분야 카드 (+ 스튜디오 소개 카드) ---------------- */
+  const STUDIO_CARD = `
+      <a class="cat-card reveal" href="studio.html">
+        <div class="thumb"><img src="images/studio-1.jpg" alt="사랑이야기스튜디오 시설과 의상" loading="lazy" data-fallback="스튜디오"></div>
+        <div class="body">
+          <span class="en">Our Studio</span>
+          <h3>스튜디오 소개</h3>
+          <p>4층 사진 전용 건물, 세트장 · 파우더룸 · 의상 1,000여 벌</p>
+          <span class="more">자세히 보기 →</span>
+        </div>
+      </a>`;
   $$("[data-cat-grid]:not([data-built])").forEach((el) => {
     el.innerHTML = CATS.map((c, i) => `
       <a class="cat-card reveal ${i === 0 ? "featured" : ""}" href="${c.page}">
@@ -150,7 +162,7 @@
           <p>${c.desc}</p>
           <span class="more">자세히 보기 →</span>
         </div>
-      </a>`).join("");
+      </a>`).join("") + STUDIO_CARD;
   });
 
   /* ---------------- 문의 버튼 묶음 ---------------- */
@@ -215,7 +227,7 @@
     if (withFilter) {
       filterBar = document.createElement("div");
       filterBar.className = "filters";
-      filterBar.innerHTML = [["all", "전체"], ...CATS.map((c) => [c.key, c.name])]
+      filterBar.innerHTML = [["all", "전체"], ...CATS.map((c) => [c.key, c.name]), ...(GALLERY.some((g) => g.cat === "studio") ? [["studio", "스튜디오"]] : [])]
         .map(([k, n]) => `<button type="button" data-k="${k}">${n}</button>`).join("");
       el.before(filterBar);
       filterBar.addEventListener("click", (e) => {
@@ -251,7 +263,9 @@
       if (filterBar) $$("button", filterBar).forEach((b) => b.classList.toggle("on", b.dataset.k === cat));
       el.innerHTML = list.length
         ? list.map((g) => `<figure data-lb data-src="${esc(g.src)}" data-cap="${esc(g.alt)}"><img src="${esc(g.src)}" alt="${esc(g.alt)}" loading="lazy"><figcaption>${esc(g.sub || catByKey(g.cat)?.name || "")}</figcaption></figure>`).join("")
-        : `<p class="gallery-empty">${catByKey(cat)?.name || ""} 샘플 사진을 준비하고 있습니다.<br>상담 시 실제 촬영 사진을 보여드려요.</p>`;
+        : `<p class="gallery-empty">${esc(el.dataset.emptyText || `${catByKey(cat)?.name || ""} 샘플 사진을 준비하고 있습니다. 상담 시 실제 촬영 사진을 보여드려요.`)}</p>`;
+      // data-hide-empty: 보여줄 사진이 하나도 없으면 그 영역(section)을 통째로 숨김
+      if (!list.length && el.dataset.hideEmpty !== undefined) { const sec = el.closest("section"); if (sec) sec.hidden = true; }
       el.classList.toggle("gallery", list.length > 0);
       more.innerHTML = pageSize && total > list.length
         ? `<button type="button" class="btn btn-line">사진 더 보기 (${total - list.length}장 더)</button>` : "";

@@ -31,12 +31,9 @@
 오랜 친구, 동창, 모임과 함께 남기는 추억
 - 우정사진 (2 ~ 4인): 1인 50,000원 — 12×17cm 1장 + 5×7cm 1장 (동일 사진), 의상 1벌 직접 준비 (흰셔츠 무료 대여), 드레스·파티복·한복·경성복·교복 대여 1벌 3만원, 메이크업 & 헤어 추가 시 할인, 원본파일 추가 1인 5만원, 웹용 액자 작업본 파일 제공
 - 우정사진 (5인 이상): 1인 30,000원 — 12×17cm 1장 + 5×7cm 1장 (동일 사진), 의상 1벌 직접 준비 (흰셔츠 무료 대여), 드레스·파티복·한복·경성복·교복 대여 1벌 3만원, 메이크업 & 헤어 추가 시 할인, 원본파일 추가 1인 5만원, 웹용 액자 작업본 파일 제공
-### 증명사진 — https://love8859-jty.github.io/sarang-studio/id-photo.html
-취업·이력서·자격증, 인상이 좋아 보이는 증명사진
-- 증명 · 여권사진 (1인): 30,000원 — 용도에 맞는 규격으로 촬영, 세부 구성은 전화로 안내해 드려요
-### 여권사진 — https://love8859-jty.github.io/sarang-studio/passport.html
-외교부 규격에 맞춘 정확한 여권사진
-- 증명 · 여권사진 (1인): 30,000원 — 외교부 여권 규격 3.5×4.5cm, 세부 구성은 전화로 안내해 드려요
+### 증명·여권사진 — https://love8859-jty.github.io/sarang-studio/id-photo.html
+취업·자격증 증명사진, 외교부 규격 여권사진
+- 증명 · 여권사진 (1인): 30,000원 — 이력서·자격증·주민등록증 등 용도에 맞는 규격, 외교부 여권 규격 3.5×4.5cm, 자세·표정 코칭과 자연스러운 보정, 세부 구성은 전화로 안내해 드려요
 ### 프로필사진 — https://love8859-jty.github.io/sarang-studio/profile.html
 SNS·명함·오디션용 프로필, 부모님 장수사진
 - 프로필사진 (1인 · SNS·홈페이지·명함용): 100,000원 — 12×17cm 1장 + 5×7cm 1장 (동일 사진), 수정본 파일 제공 (선택 사진), 추가 사진 1장 5만원 (보정 포함), 의상 1벌 직접 준비 (드레스·한복 등 대여 1벌 3만원), 촬영 · 사진 선택 약 1시간
@@ -53,8 +50,8 @@ SNS·명함·오디션용 프로필, 부모님 장수사진
 - https://love8859-jty.github.io/sarang-studio/news-gallery-update-senior-portrait-pet-family.html
 - https://love8859-jty.github.io/sarang-studio/news-gumi-family-photo-guide.html
 - https://love8859-jty.github.io/sarang-studio/news.html
-- https://love8859-jty.github.io/sarang-studio/passport.html
 - https://love8859-jty.github.io/sarang-studio/price.html
 - https://love8859-jty.github.io/sarang-studio/privacy.html
 - https://love8859-jty.github.io/sarang-studio/profile.html
 - https://love8859-jty.github.io/sarang-studio/remind.html
+- https://love8859-jty.github.io/sarang-studio/studio.html
