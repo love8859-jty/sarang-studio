@@ -83,7 +83,7 @@
   /* ---------------- 푸터 + 모바일 하단 버튼 ---------------- */
   const footer = $("#site-footer");
   if (footer && !("built" in footer.dataset)) {
-    const sns = [["네이버 예약", S.naverBooking], ["네이버 톡톡", S.naverTalk], ["인스타그램", S.instagram], ["네이버 카페", S.cafe], ["블로그", S.blog], ["카카오톡", S.kakao]]
+    const sns = [["네이버 예약", S.naverBooking], ["카카오톡 상담", S.kakao], ["네이버 톡톡", S.naverTalk], ["인스타그램", S.instagram], ["유튜브", S.youtube], ["네이버 카페", S.cafe], ["블로그", S.blog]]
       .filter((x) => x[1]).map((x) => `<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join("");
     footer.outerHTML = `
     <footer class="site-footer">
@@ -111,8 +111,8 @@
     </footer>
     <div class="bottom-bar" role="navigation" aria-label="빠른 문의">
       <a href="${tel(S.phone)}">${ICON.phone} 전화</a>
-      ${S.naverTalk ? `<a class="talk" href="${S.naverTalk}" target="_blank" rel="noopener">${ICON.chat} 톡톡 문의</a>`
-        : S.kakao ? `<a class="kakao" href="${S.kakao}" target="_blank" rel="noopener">${ICON.chat} 카톡</a>`
+      ${S.kakao ? `<a class="kakao" href="${S.kakao}" target="_blank" rel="noopener">${ICON.chat} 카톡 상담</a>`
+        : S.naverTalk ? `<a class="talk" href="${S.naverTalk}" target="_blank" rel="noopener">${ICON.chat} 톡톡 문의</a>`
         : `<a href="contact.html#location">${ICON.cal} 오시는 길</a>`}
       ${S.naverBooking ? `<a class="main" href="${S.naverBooking}" target="_blank" rel="noopener">${ICON.cal} 예약하기</a>`
         : `<a class="main" href="${contactLink(page)}">${ICON.msg} 예약 문의</a>`}
@@ -121,8 +121,8 @@
 
   /* 문의 수단 버튼 (네이버 톡톡 / 카카오톡) */
   function chatButtons(cls = "") {
-    return (S.naverTalk ? `<a class="btn btn-talk ${cls}" href="${S.naverTalk}" target="_blank" rel="noopener">${ICON.chat} 네이버 톡톡 문의</a>` : "")
-      + (S.kakao ? `<a class="btn btn-kakao ${cls}" href="${S.kakao}" target="_blank" rel="noopener">${ICON.chat} 카카오톡 상담</a>` : "");
+    return (S.kakao ? `<a class="btn btn-kakao ${cls}" href="${S.kakao}" target="_blank" rel="noopener">${ICON.chat} 카카오톡 상담</a>` : "")
+      + (S.naverTalk ? `<a class="btn btn-talk ${cls}" href="${S.naverTalk}" target="_blank" rel="noopener">${ICON.chat} 네이버 톡톡 문의</a>` : "");
   }
 
   function contactLink(key) {
@@ -446,8 +446,8 @@
     // 보낼 수 있는 방법을 설정(config.js)에 따라 자동으로 버튼으로 만듦
     const channels = [];
     if (S.mobile && isMobile) channels.push({ id: "sms", label: "문자로 예약 문의 보내기", cls: "btn-primary" });
+    if (S.kakao) channels.push({ id: "kakao", label: "카카오톡으로 상담하기", cls: "btn-kakao" });
     if (S.naverTalk) channels.push({ id: "talk", label: "네이버 톡톡으로 문의 보내기", cls: channels.length ? "btn-talk" : "btn-naver" });
-    if (S.kakao) channels.push({ id: "kakao", label: "카카오톡으로 문의 보내기", cls: "btn-kakao" });
     if (!channels.length) channels.push({ id: "copy", label: "문의 내용 복사하기", cls: "btn-primary" });
 
     const actions = $("#form-actions");

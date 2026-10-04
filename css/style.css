@@ -299,6 +299,11 @@ p { margin: 0; }
 .post-body figure img { width: 100%; border-radius: 12px; }
 .post-body figcaption { font-size: 14px; color: var(--muted); text-align: center; margin-top: 10px; }
 
+.artist { margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 30px; }
+.artist h3 { font-size: 20px; margin-bottom: 12px; }
+.artist ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--ink-2); font-size: 15px; }
+@media (max-width: 640px) { .artist { padding: 22px 18px; } }
+
 /* ---------- 신뢰 배지 ---------- */
 .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
 .trust div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 20px; text-align: center; }
