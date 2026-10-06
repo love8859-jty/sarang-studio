@@ -49,7 +49,7 @@ window.STUDIO = {
   siteUrl: "https://love8859-jty.github.io/sarang-studio/",   // 홈페이지 주소 (도메인을 사면 바꿔주세요, 끝에 / 꼭 붙이기)
   foundingYear: "1996",
   areaServed: "구미시, 대구광역시, 김천시, 상주시, 문경시, 칠곡군, 의성군, 군위군",
-  credentials: "미국 PPA 사진명장(Master of Photography, 2014), (사)한국프로사진협회 부회장, (사)한국프로사진협회 초대작가(제300호), 중소벤처기업부 백년가게(2023), 으뜸 소상공인 표창",
+  credentials: "미국 PPA MASTER PHOTOGRAPHER(사진명장; 2014년),(사)한국프로사진협회 부회장, (사)한국프로사진협회 초대작가(제300호), 중소벤처기업부 백년가게(2023), 으뜸 소상공인 표창",
   naverVerify: "",    // 네이버 서치어드바이저 사이트 확인 코드 (받으면 넣어주세요)
   googleVerify: "",   // 구글 서치콘솔 사이트 확인 코드 (받으면 넣어주세요)
 
@@ -72,7 +72,7 @@ window.CATEGORIES = [
   { key: "family",   name: "가족사진",     en: "Family",   page: "family.html",   img: "images/family-big.jpg",          desc: "우리 네 식구부터 3대 대가족, 칠순·팔순 기념까지" },
   { key: "remind",   name: "리마인드웨딩", en: "Remind Wedding", page: "remind.html", img: "images/remind-couple.jpg", desc: "결혼기념일, 회갑·칠순, 다시 입는 웨딩드레스" },
   { key: "friends",  name: "우정사진",     en: "Friendship", page: "friends.html", img: "images/friends-ribbon.jpg",     desc: "오랜 친구, 동창, 모임과 함께 남기는 추억" },
-  { key: "id",       name: "증명·여권사진", en: "ID & Passport", page: "id-photo.html", img: "images/id-1.jpg",          desc: "취업·자격증 증명사진, 외교부 규격 여권사진" },
+  { key: "id",       name: "증명·여권사진", en: "ID & Passport", page: "id-photo.html", img: "images/id-1.jpg",          desc: "증명·여권·운전면허·비자·청소년증 사진" },
   { key: "profile",  name: "프로필사진",   en: "Profile",  page: "profile.html",  img: "images/profile-1.jpg",          desc: "SNS·명함·오디션용 프로필, 부모님 장수사진" },
 ];
 
@@ -101,7 +101,7 @@ window.PRICES = {
     { name: "우정사진", people: "5인 이상", price: "1인 30,000원", best: true, items: ["12×17cm 1장 + 5×7cm 1장 (동일 사진)", "의상 1벌 직접 준비 (흰셔츠 무료 대여)", "드레스·파티복·한복·경성복·교복 대여 1벌 3만원", "메이크업 & 헤어 추가 시 할인", "원본파일 추가 1인 5만원", "웹용 액자 작업본 파일 제공"] },
   ],
   id: [
-    { name: "증명 · 여권사진", people: "1인", price: "30,000원", best: true, items: ["이력서·자격증·주민등록증 등 용도에 맞는 규격", "외교부 여권 규격 3.5×4.5cm", "자세·표정 코칭과 자연스러운 보정", "세부 구성은 전화로 안내해 드려요"] },
+    { name: "증명 · 여권사진", people: "1인", price: "30,000원", best: true, items: ["이력서·자격증·주민등록증·청소년증 등 용도에 맞는 규격", "여권·운전면허증 3.5×4.5cm · 나라별 비자사진", "자세·표정 코칭과 자연스러운 보정", "웹용 파일 추가 5,000원 (큰 사이즈는 별도 문의)", "세부 구성은 전화로 안내해 드려요"] },
   ],
   profile: [
     { name: "프로필사진", people: "1인 · SNS·홈페이지·명함용", price: "100,000원", best: true, items: ["12×17cm 1장 + 5×7cm 1장 (동일 사진)", "수정본 파일 제공 (선택 사진)", "추가 사진 1장 5만원 (보정 포함)", "의상 1벌 직접 준비 (드레스·한복 등 대여 1벌 3만원)", "촬영 · 사진 선택 약 1시간"] },
@@ -146,7 +146,6 @@ window.GALLERY = [
   { src: "images/family-denim.jpg",            cat: "family",  alt: "청청 데님 의상으로 맞춘 활기찬 가족사진" },
   { src: "images/family-chair.jpg",            cat: "family",  alt: "나무 의자에 앉은 흑백 코디 가족사진" },
   { src: "images/family-balloon.jpg",          cat: "family",  alt: "풍선을 들고 웃는 다섯 식구 가족사진" },
-  { src: "images/family-hanbok.jpg",           cat: "family",  alt: "명절 한복을 입은 가족사진" },
   { src: "images/remind-couple.jpg",           cat: "remind",  alt: "턱시도와 웨딩드레스를 입은 부부 리마인드웨딩" },
   { src: "images/remind-mother-daughters.jpg", cat: "remind",  alt: "엄마와 두 딸이 함께 입은 웨딩드레스" },
   { src: "images/friends-ribbon.jpg",          cat: "friends", alt: "컬러 리본 머리띠를 한 친구들의 우정사진" },
