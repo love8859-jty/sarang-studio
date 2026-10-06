@@ -48,7 +48,7 @@ window.STUDIO = {
   // ▼ 검색(SEO) 정보 — '홈페이지_올리기'가 이 값으로 검색엔진용 정보를 만들어요
   siteUrl: "https://love8859-jty.github.io/sarang-studio/",   // 홈페이지 주소 (도메인을 사면 바꿔주세요, 끝에 / 꼭 붙이기)
   foundingYear: "1996",
-  areaServed: "구미시, 김천시, 상주시, 문경시, 칠곡군, 의성군, 군위군",
+  areaServed: "구미시, 대구광역시, 김천시, 상주시, 문경시, 칠곡군, 의성군, 군위군",
   credentials: "미국 PPA 사진명장(Master of Photography, 2014), (사)한국프로사진협회 부회장, (사)한국프로사진협회 초대작가(제300호), 중소벤처기업부 백년가게(2023), 으뜸 소상공인 표창",
   naverVerify: "",    // 네이버 서치어드바이저 사이트 확인 코드 (받으면 넣어주세요)
   googleVerify: "",   // 구글 서치콘솔 사이트 확인 코드 (받으면 넣어주세요)

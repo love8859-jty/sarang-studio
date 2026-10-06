@@ -77,6 +77,13 @@ p { margin: 0; }
 }
 .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .logo { display: flex; flex-direction: column; line-height: 1.15; }
+.logo img { height: 46px; width: auto; display: block; }
+.site-footer .logo img { height: 48px; }
+.f-badge { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-size: 13px; line-height: 1.5; color: #cbbfb3; }
+.f-badge .bn { background: #fff; border-radius: 10px; padding: 6px 8px; display: inline-flex; }
+.f-badge .bn img { height: 42px; width: auto; }
+.trust .trust-logo img { height: 44px; width: auto; margin: 0 auto 6px; }
+.sec-head .slogan { width: min(420px, 86%); height: auto; margin: 0 auto 18px; }
 .logo b { font-family: var(--serif); font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
 .logo small { font-size: 9.5px; letter-spacing: .28em; color: var(--accent); font-weight: 600; }
 .nav { display: flex; align-items: center; gap: 4px; }
@@ -465,6 +472,7 @@ p { margin: 0; }
   .sec-head { margin-bottom: 36px; }
   .sec-head p { font-size: 15.5px; }
   .logo b { font-size: 19px; }
+  .site-header .logo img { height: 36px; }
 
   /* 메인: 사진을 자르지 않고 크게, 글은 사진 아래 */
   .hero-text { padding: 40px 16px 0; }

@@ -28,7 +28,7 @@
     header.outerHTML = `
     <header class="site-header">
       <div class="wrap">
-        <a class="logo" href="index.html" aria-label="${S.name} 홈"><b>${S.name}</b><small>${S.nameEn}</small></a>
+        <a class="logo" href="index.html" aria-label="${S.name} 홈"><img src="images/brand/logo.png" alt="${S.name} ${S.nameEn}" width="116" height="40"></a>
         <nav class="nav" aria-label="주 메뉴">
           <a href="family.html" class="${page === "family" ? "active" : ""}">가족사진</a>
           <div class="drop">
@@ -90,8 +90,9 @@
       <div class="wrap">
         <div class="cols">
           <div>
-            <a class="logo" href="index.html"><b>${S.name}</b><small>${S.nameEn}</small></a>
+            <a class="logo" href="index.html"><img src="images/brand/logo-white.png" alt="${S.name} ${S.nameEn}" width="139" height="48"></a>
             <p style="margin-top:16px">${S.slogan}</p>
+            <div class="f-badge"><span class="bn"><img src="images/brand/baeknyeon.png" alt="중소벤처기업부 선정 백년가게" width="66" height="42" loading="lazy"></span><span>중소벤처기업부 선정<br>백년가게 (2023)</span></div>
             <p style="margin-top:14px">${S.address}<br>전화 <a href="${tel(S.phone)}">${S.phone}</a></p>
             ${sns ? `<div class="sns">${sns}</div>` : ""}
           </div>
