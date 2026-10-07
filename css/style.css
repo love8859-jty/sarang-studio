@@ -77,7 +77,7 @@ p { margin: 0; }
 }
 .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .logo { display: flex; flex-direction: column; line-height: 1.15; }
-.logo img { height: 46px; width: auto; display: block; }
+.logo img { height: 46px; width: auto; display: block; align-self: flex-start; object-fit: contain; }
 .site-footer .logo img { height: 48px; }
 .f-badge { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-size: 13px; line-height: 1.5; color: #cbbfb3; }
 .f-badge .bn { background: #fff; border-radius: 10px; padding: 6px 8px; display: inline-flex; }
@@ -421,8 +421,8 @@ p { margin: 0; }
 .site-footer a:hover { color: #fff; }
 .site-footer .f-links { display: grid; gap: 8px; }
 .site-footer .copy { border-top: 1px solid #453c35; margin-top: 50px; padding-top: 24px; font-size: 13px; color: #8f8378; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.sns { display: flex; gap: 10px; margin-top: 18px; }
-.sns a { border: 1px solid #5a4f47; border-radius: 99px; padding: 6px 14px; font-size: 13px; }
+.sns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.sns a { border: 1px solid #5a4f47; border-radius: 99px; padding: 6px 14px; font-size: 13px; white-space: nowrap; }
 
 /* ---------- 모바일 하단 고정 버튼 ---------- */
 .bottom-bar { display: none; }
