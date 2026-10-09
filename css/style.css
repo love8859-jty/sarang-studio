@@ -127,13 +127,20 @@ p { margin: 0; }
 .hero-text h1 { font-size: clamp(30px, 4.4vw, 56px); color: var(--ink); }
 .hero-text p { color: var(--ink-2); font-size: 18px; margin-top: 12px; }
 .hero-cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-.hero-img {
-  width: 100%; max-width: 1500px; margin: -40px auto 0; aspect-ratio: 1800 / 1060; object-fit: cover; object-position: center 80%;
+/* 첫 화면 사진: 옆으로 넘어가는 슬라이드 */
+.hero-slider {
+  position: relative; width: 100%; max-width: 1500px; margin: -40px auto 0; aspect-ratio: 1800 / 1060; overflow: hidden; touch-action: pan-y;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%), linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(to bottom, transparent 0, #000 14%), linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
   mask-composite: intersect;
 }
+.hero-track { display: flex; height: 100%; transition: transform .9s cubic-bezier(.65, 0, .35, 1); will-change: transform; }
+.hero-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; user-select: none; -webkit-user-drag: none; }
+.hero-dots { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; gap: 8px; z-index: 2; }
+.hero-dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 99px; background: rgba(255,255,255,.6); box-shadow: 0 0 0 1px rgba(0,0,0,.12); cursor: pointer; transition: width .3s, background .3s; }
+.hero-dots button[aria-selected="true"] { width: 26px; background: #fff; }
+@media (prefers-reduced-motion: reduce) { .hero-track { transition: none; } }
 
 /* ---------- 촬영 분야 카드 ---------- */
 .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -479,7 +486,8 @@ p { margin: 0; }
   .hero-text p { font-size: 16px; }
   .hero-cta { margin-top: 20px; }
   .hero-cta .btn { flex: 1; padding: 14px 12px; }
-  .hero-img { margin-top: 0; aspect-ratio: 6 / 5; object-position: center 60%; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%); mask-image: linear-gradient(to bottom, transparent 0, #000 12%); }
+  .hero-slider { margin-top: 0; aspect-ratio: 4 / 3; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%); mask-image: linear-gradient(to bottom, transparent 0, #000 12%); }
+  .hero-dots { bottom: 12px; }
 
   /* 휴대폰: 사진 있는 분야는 크게 한 줄씩, 증명·여권·프로필은 작은 카드 3개로 */
   .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }

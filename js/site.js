@@ -503,6 +503,38 @@
         : "버튼을 누르면 적으신 내용이 복사되고 대화창이 열려요. 대화창에 붙여넣기(길게 누르기 → 붙여넣기) 후 보내주세요.";
   }
 
+  /* ---------------- 첫 화면 사진 슬라이드 ---------------- */
+  $$("[data-hero-slider]").forEach((box) => {
+    const track = $(".hero-track", box), slides = $$(".hero-img", box), dots = $(".hero-dots", box);
+    if (slides.length < 2) return;
+    let i = 0, timer = null;
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    dots.innerHTML = slides.map((_, n) => `<button type="button" role="tab" aria-label="${n + 1}번째 사진"></button>`).join("");
+    const btns = $$("button", dots);
+    const go = (n) => {
+      i = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${i * 100}%)`;
+      btns.forEach((b, k) => b.setAttribute("aria-selected", k === i));
+      const next = slides[(i + 1) % slides.length];
+      if (next.loading === "lazy") next.loading = "eager";   // 다음 사진 미리 불러오기
+    };
+    const stop = () => { clearInterval(timer); timer = null; };
+    const play = () => { stop(); if (!still && !document.hidden) timer = setInterval(() => go(i + 1), 5000); };
+    btns.forEach((b, k) => b.addEventListener("click", () => { go(k); play(); }));
+    box.addEventListener("mouseenter", stop);
+    box.addEventListener("mouseleave", play);
+    document.addEventListener("visibilitychange", play);
+    // 휴대폰에서 손가락으로 밀어 넘기기
+    let x0 = null, y0 = 0;
+    box.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; stop(); }, { passive: true });
+    box.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(i + (dx < 0 ? 1 : -1));
+      x0 = null; play();
+    });
+    go(0); play();
+  });
   /* ---------------- 스크롤하면 부드럽게 나타나기 ---------------- */
   const io = "IntersectionObserver" in window ? new IntersectionObserver((ents) => {
     ents.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
